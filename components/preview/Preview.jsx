@@ -154,46 +154,46 @@ const Preview = () => {
           menu={() => (
             <>
               <MenuButton
-        title="Bold (Ctrl+B)"
-        icon={<FaBold />}
-        onClick={toggleBold}
-      />
-      <MenuButton 
-        title="Italic (Ctrl+I)"
-        icon={<FaItalic />}
-        onClick={toggleItalic}
-      />
-      <MenuButton
-        title="Underline (Ctrl+U)"
-        icon={<FaUnderline />}
-        onClick={toggleUnderline}
-      />
-      <MenuButton
-        title="Increase Font Size"
-        icon={<FaPlus/>}
-        onClick={() => changeFontSize(4)} 
-      />
-      <MenuButton
-        title="Decrease Font Size"
-        icon={<FaMinus/>}
-        onClick={() => changeFontSize(2)} 
-      />
+                title="Bold (Ctrl+B)"
+                icon={<FaBold />}
+                onClick={toggleBold}
+              />
+              <MenuButton
+                title="Italic (Ctrl+I)"
+                icon={<FaItalic />}
+                onClick={toggleItalic}
+              />
+              <MenuButton
+                title="Underline (Ctrl+U)"
+                icon={<FaUnderline />}
+                onClick={toggleUnderline}
+              />
+              <MenuButton
+                title="Increase Font Size"
+                icon={<FaPlus />}
+                onClick={() => changeFontSize(4)}
+              />
+              <MenuButton
+                title="Decrease Font Size"
+                icon={<FaMinus />}
+                onClick={() => changeFontSize(2)}
+              />
 
-      <MenuButton
-        title="Align Left"
-        icon={<FaAlignLeft/>}
-        onClick={() => alignText('Left')}
-      />
-      <MenuButton
-        title="Align Center"
-        icon={<FaAlignCenter/>}
-        onClick={() => alignText('Center')}
-      />
-      <MenuButton
-        title="Align Right"
-        icon={<FaAlignRight/>}
-        onClick={() => alignText('Right')}
-      />
+              <MenuButton
+                title="Align Left"
+                icon={<FaAlignLeft />}
+                onClick={() => alignText("Left")}
+              />
+              <MenuButton
+                title="Align Center"
+                icon={<FaAlignCenter />}
+                onClick={() => alignText("Center")}
+              />
+              <MenuButton
+                title="Align Right"
+                icon={<FaAlignRight />}
+                onClick={() => alignText("Right")}
+              />
             </>
           )}
         />
@@ -236,7 +236,6 @@ const Preview = () => {
                     // Prevent text overflowing, If the socialMedia.link string is longer than 32 characters, apply the wordWrap and display styles to this <a> tag.
                     // wordWrap: "break-word" breaks the text onto the next line if it's too long,
                     // display: "inline-block" is necessary for wordWrap to work on an inline element like <a>.
-                    
                   >
                     {icons.map((icon, index) => {
                       if (icon.name === socialMedia.socialMedia.toLowerCase()) {
@@ -269,8 +268,15 @@ const Preview = () => {
                     </h2>
                     {resumeData.education.map((item, index) => (
                       <div key={index} className="mb-1">
-                        <p className="content i-bold">{item.degree}</p>
-                        <p className="content">{item.school}</p>
+                        <p className="content i-bold" style={{fontSize: '12px'}}>{item.degree}</p>
+                        <div 
+                        className="content"
+                        style={{fontSize: '11px'}}
+                          dangerouslySetInnerHTML={{
+                            __html: item.school,
+                          }}
+                          contentEditable
+                        />
                         <DateRange
                           startYear={item.startYear}
                           endYear={item.endYear}
@@ -282,40 +288,40 @@ const Preview = () => {
                 )}
               </div>
               <Droppable droppableId="skills" type="SKILLS">
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
-                    {resumeData.skills.map((skill, index) => (
-                      <Draggable
-                        key={`SKILLS-${index}`}
-                        draggableId={`SKILLS-${index}`}
-                        index={index}
-                      >
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className={`mb-1 ${
-                              snapshot.isDragging &&
-                              "outline-dashed outline-2 outline-gray-400 bg-white"
-                            }`}
-                          >
-                            <Skills title={skill.title} skills={skill.skills} />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
+  {(provided) => (
+    <div {...provided.droppableProps} ref={provided.innerRef}>
+      {resumeData.skills.map((skill, index) => (
+        <Draggable
+          key={`SKILLS-${index}`}
+          draggableId={`SKILLS-${index}`}
+          index={index}
+        >
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              className={`mb-1 ${
+                snapshot.isDragging &&
+                "outline-dashed outline-2 outline-gray-400 bg-white"
+              }`}
+            >
+              <Skills title={skill.title} skills={skill.skills} />
+            </div>
+          )}
+        </Draggable>
+      ))}
+      {provided.placeholder}
+    </div>
+  )}
+</Droppable>
               <Language title="Languages" languages={resumeData.languages} />
               <Certification
-                title="Certifications"
+                title="Achievements"
                 certifications={resumeData.certifications}
               />
             </div>
-            
+
             <div className="col-span-2 space-y-2">
               {resumeData.workExperience.length > 0 && (
                 <Droppable droppableId="work-experience" type="WORK_EXPERIENCE">
@@ -445,7 +451,7 @@ const Preview = () => {
                                   id={`work-experience-start-end-date`}
                                 />
                               </div>
-                             
+
                               <Link
                                 href={item.link}
                                 target="_blank"
@@ -501,9 +507,7 @@ const Preview = () => {
                                 )}
                               </Droppable>
                             </div>
-                            
                           )}
-                          
                         </Draggable>
                       ))}
                       {provided.placeholder}
@@ -512,7 +516,6 @@ const Preview = () => {
                 </Droppable>
               )}
             </div>
-            
           </div>
         </DragDropContext>
       </A4PageWrapper>

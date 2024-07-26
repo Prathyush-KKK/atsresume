@@ -45,8 +45,8 @@ export default function Meta({ title, keywords, description }) {
             <meta name="description" content={description} />
             <meta charSet="utf-8" />
             <link rel="icon" href={fevicon} />
-            <title>{title}</title>
-            <meta type="copyright" content="ATSResume" />
+            <title hidden>{title}</title>
+            <meta type="copyright" content="Good Candidate" />
             <meta type="author" content="Saurav Hathi" />
             {/* Open Graph */}
             <meta property="og:type" content="website" />
